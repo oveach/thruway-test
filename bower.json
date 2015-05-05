@@ -1,0 +1,16 @@
+{
+  "name": "thruway-test",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "autobahn": "~0.9.6",
+    "bootstrap": "~3.3.4"
+  }
+}
