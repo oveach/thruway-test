@@ -3,7 +3,7 @@ $("document").ready(function(){
     
     // var connection = new autobahn.Connection({url: 'ws://127.0.0.1:9090/', realm: 'realm1'});
     // we're using an apache proxy to pass it to port 9090 without the need to expose the service
-    var connection = new autobahn.Connection({url: 'ws://thruway-test.localhost/ws2/', realm: 'realm1'});
+    var connection = new autobahn.Connection({url: 'ws://' + ROUTER_URL, realm: 'realm1'});
 
     connection.onopen = function(session) {
         $("#result").append("Websocket connection established succesfully :)\n\n");
@@ -19,6 +19,6 @@ $("document").ready(function(){
         });
     };
 
-    $("#result").append("Trying to connect to websocket server using WAMP protocol...\n");
+    $("#result").append("Trying to connect to websocket server using WAMP protocol (may take some time)...\n");
     connection.open();
 });

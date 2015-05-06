@@ -1,0 +1,5 @@
+/**
+ * Define the global constants here
+ */
+
+ROUTER_URL = "<YOUR_HOST_HERE>/ws2/";
