@@ -6,6 +6,9 @@ $("document").ready(function(){
     var connection = new autobahn.Connection({url: 'ws://' + ROUTER_URL, realm: 'realm1'});
 
     connection.onopen = function(session) {
+        $("input#message").prop("disabled", false);
+        $("#btnSend").prop("disabled", false);
+        $("input#message").focus();
         $("#result").append("Websocket connection established succesfully :)\n\n");
 
         session.subscribe("com.app.message", function(args){
