@@ -14,8 +14,14 @@ $("document").ready(function(){
 
         $("form#formMessage").submit(function(e){
             e.preventDefault();   // to handle submission all in js, with no http request
+
+            // construct and send event
             var msg = "(session #" + session.id + ") " + $("input#message").val();
             session.publish("com.app.message", [msg], {}, {exclude_me: false});
+
+            // clear input after submission, to let the user type another message easily
+            $("input#message").val(null);
+            $("input#message").focus();
         });
     };
 
