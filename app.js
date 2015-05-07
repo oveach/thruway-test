@@ -1,5 +1,7 @@
 $("document").ready(function(){
     
+    $("#current_username").hide();
+
     // var connection = new autobahn.Connection({url: 'ws://127.0.0.1:9090/', realm: 'realm1'});
     // we're using an apache proxy to pass it to port 9090 without the need to expose the service
     var connection = new autobahn.Connection({url: 'ws://' + ROUTER_URL, realm: 'realm1'});
@@ -29,6 +31,8 @@ $("document").ready(function(){
                     username = $("input#username").val();
                     $("div#user-modal").modal("hide");
                     // activate form
+                    $("#current_username").html(username);
+                    $("#current_username").show();
                     $("input#message").prop("readonly", false);
                     $("#btnSend").prop("disabled", false);
                     $("input#message").focus();
