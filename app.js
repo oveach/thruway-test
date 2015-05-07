@@ -10,9 +10,14 @@ $("document").ready(function(){
     // list of connected users
     var users = [];
 
+    function consoleAppend(text){
+        var now = new Date();
+        $("#result").append("(" + now.toLocaleTimeString() + ") " + text + "\n");
+    };
+
     connection.onopen = function(session) {
         // add status info
-        $("#result").append("Websocket connection established succesfully :)\n\n");
+        consoleAppend("Websocket connection established succesfully :)\n");
 
         // show new user window
         $("div#user-modal").modal();
@@ -35,7 +40,7 @@ $("document").ready(function(){
         });
 
         session.subscribe("com.app.user.join", function(args){
-            $("#result").append("--- " + args[0] + " joined the chat ---\n");
+            consoleAppend("--- " + args[0] + " joined the chat ---");
             if (username != args[0] && users.indexOf(args[0]) == -1) {
                 $("#users").append(args[0] + "\n");
             }
@@ -48,7 +53,7 @@ $("document").ready(function(){
 
         // display chat message
         session.subscribe("com.app.message", function(args){
-            $("#result").append(args[0] + "\n");
+            consoleAppend(args[0]);
         });
 
         // send chat message
@@ -67,6 +72,6 @@ $("document").ready(function(){
         });
     };
 
-    $("#result").append("Trying to connect to websocket server using WAMP protocol (may take some time)...\n");
+    consoleAppend("Trying to connect to websocket server using WAMP protocol (may take some time)...");
     connection.open();
 });
