@@ -1,5 +1,4 @@
 $("document").ready(function(){
-    $("input#message").focus();
     
     // var connection = new autobahn.Connection({url: 'ws://127.0.0.1:9090/', realm: 'realm1'});
     // we're using an apache proxy to pass it to port 9090 without the need to expose the service
@@ -29,6 +28,9 @@ $("document").ready(function(){
                 if ($("input#username").val().length > 0) {
                     username = $("input#username").val();
                     $("div#user-modal").modal("hide");
+                    // activate form
+                    $("input#message").prop("readonly", false);
+                    $("#btnSend").prop("disabled", false);
                     $("input#message").focus();
                     session.call("com.app.user.connect", [username]).then(
                         function(result){
@@ -45,11 +47,6 @@ $("document").ready(function(){
                 $("#users").append(args[0] + "\n");
             }
         });
-
-        // activate form
-        $("input#message").prop("disabled", false);
-        $("#btnSend").prop("disabled", false);
-        $("input#message").focus();
 
         // display chat message
         session.subscribe("com.app.message", function(args){
