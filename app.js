@@ -7,6 +7,8 @@ $("document").ready(function(){
 
     // will hold the username during the chat session
     var username = null;
+    // list of connected users
+    var users = [];
 
     connection.onopen = function(session) {
         // add status info
@@ -23,14 +25,20 @@ $("document").ready(function(){
                     username = $("input#username").val();
                     $("div#user-modal").modal("hide");
                     $("input#message").focus();
-                    session.publish("com.app.user.join", [username], {}, {exclude_me: false});
+                    session.call("com.app.user.connect", [username]).then(
+                        function(result){
+                            users = result.users_list;
+                            $("#users").append(result.users_list.join("\n") + "\n");
+                        });
                 }
             });
         });
 
         session.subscribe("com.app.user.join", function(args){
             $("#result").append("--- " + args[0] + " joined the chat ---\n");
-            $("#users").append(args[0] + "\n");
+            if (username != args[0] && users.indexOf(args[0]) == -1) {
+                $("#users").append(args[0] + "\n");
+            }
         });
 
         // activate form
